@@ -1,4 +1,5 @@
 import { TransactionCategory, TransactionType } from "@/models/transaction";
+import { check } from "express-validator";
 const categories: TransactionCategory[] = [
   "salary",
   "investments",
@@ -32,3 +33,12 @@ export const isValidTransactionType = (
 ): value is TransactionType => {
   return value === "income" || value === "expense";
 };
+
+export const isValidTransaction = [
+  check("note", "Note is required").notEmpty(),
+  check("category").notEmpty(),
+  check("category").custom(isValidTransactionCategory),
+  check("amount", "Amount is required").notEmpty(),
+  check("type", "Type is required").notEmpty(),
+  check("type", "Type must be a valid type").custom(isValidTransactionType),
+];
