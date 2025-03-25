@@ -1,7 +1,6 @@
 import app from "./src";
+import { PORT } from "./src/config/constants";
 
-const port = 3000;
-
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
+app.listen(PORT, () => {
+  console.log(`Financy app listening on port ${PORT}`);
 });

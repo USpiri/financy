@@ -11,7 +11,8 @@
   "scripts": {
     "dev:app": "npm run dev -w app",
     "dev:server": "npm run dev -w server",
-    "dev": "concurrently \"npm run dev:app\" \"npm run dev:server\""
+    "dev": "concurrently \"npm run dev:app\" \"npm run dev:server\"",
+    "server:types": "npm run generate-types -w server"
   },
   "keywords": [],
   "author": "USpiri",

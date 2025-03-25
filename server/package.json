@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon server.ts"
+    "dev": "nodemon server.ts",
+    "generate-types": "npx gen-env-types"
   },
   "keywords": [],
   "author": "",
@@ -17,7 +18,10 @@
   },
   "dependencies": {
     "@types/cors": "^2.8.17",
+    "@types/dotenv": "^6.1.1",
+    "@types/node": "^22.13.13",
     "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
     "express": "^4.21.2"
   }
 }
