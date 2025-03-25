@@ -1,12 +1,12 @@
-import { useEffect } from "react";
+import { AppRouter } from "@/router/AppRouter";
+import { AppProviders } from "@/components/providers/AppProviders";
 
 function App() {
-  useEffect(() => {
-    fetch("http://localhost:3000/api")
-      .then((res) => res.text())
-      .then(console.log);
-  }, []);
-  return <h1>Vite + React</h1>;
+  return (
+    <AppProviders>
+      <AppRouter />
+    </AppProviders>
+  );
 }
 
 export default App;
