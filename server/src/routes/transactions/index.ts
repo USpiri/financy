@@ -1,18 +1,16 @@
+import {
+  createTransaction,
+  deleteTransaction,
+  getTransactions,
+  updateTransaction,
+} from "@/controllers/transactions";
 import { Router } from "express";
 
 const router = Router();
 
-router.get("/", (_req, res) => {
-  res.send("/transactions");
-});
-router.post("/", (_req, res) => {
-  res.send("/transactions");
-});
-router.put("/:id", (_req, res) => {
-  res.send("/transactions");
-});
-router.delete("/:id", (_req, res) => {
-  res.send("/transactions");
-});
+router.get("/", getTransactions);
+router.post("/", createTransaction);
+router.put("/:id", updateTransaction);
+router.delete("/:id", deleteTransaction);
 
 export { router as transactionsRouter };
