@@ -7,7 +7,7 @@ interface Auth {
   password: string;
 }
 
-export const register = async ({ name, lastName, email }: Auth) => {
+export const register = async ({ name, lastName, email, password }: Auth) => {
   try {
     const checkUser = await findUser(email);
     if (checkUser) {
@@ -24,14 +24,16 @@ export const register = async ({ name, lastName, email }: Auth) => {
         name,
         lastName,
         email,
-        password: "123",
+        password,
       },
       select: {
         id: true,
         name: true,
         lastName: true,
+        email: true,
       },
     });
+
     return { ok: true, user };
   } catch (error) {
     return {
