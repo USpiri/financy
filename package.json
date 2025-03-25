@@ -12,7 +12,8 @@
     "dev:app": "npm run dev -w app",
     "dev:server": "npm run dev -w server",
     "dev": "concurrently \"npm run dev:app\" \"npm run dev:server\"",
-    "server:types": "npm run generate-types -w server"
+    "server:types": "npm run generate-types -w server",
+    "server:seed": "npm run seed -w server"
   },
   "keywords": [],
   "author": "USpiri",
