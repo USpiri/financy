@@ -1,7 +1,11 @@
 import { handleError } from "@/utils/handleError";
 import { Request, Response } from "express";
+import { register as registerAction } from "@/services/auth";
 
-export const login = async (_req: Request, res: Response) => {
+export const login = async (req: Request, res: Response) => {
+  const user = req.body;
+  console.log(user);
+
   try {
     res.send("/auth/login");
   } catch (error) {
@@ -9,9 +13,17 @@ export const login = async (_req: Request, res: Response) => {
   }
 };
 
-export const register = async (_req: Request, res: Response) => {
+export const register = async (req: Request, res: Response) => {
+  const user = req.body;
   try {
-    res.send("/auth/register");
+    const status = await registerAction(user);
+    if (!status.ok) {
+      handleError(res, status.error!.message, {
+        errorRaw: status.error?.errorRaw,
+      });
+    }
+
+    res.status(201).send({ ...status });
   } catch (error) {
     handleError(res, "Error registering", { errorRaw: error });
   }
