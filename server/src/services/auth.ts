@@ -1,15 +1,64 @@
 import { prisma } from "@/lib/prisma";
+import { generateJWT } from "@/utils/jwt";
+import { encrypt, verify } from "@/utils/password";
 
-interface Auth {
+interface LoginAuth {
+  email: string;
+  password: string;
+}
+
+interface RegisterAuth {
   name: string;
   lastName: string;
   email: string;
   password: string;
 }
 
-export const register = async ({ name, lastName, email, password }: Auth) => {
+export const login = async ({ email, password }: LoginAuth) => {
   try {
+    const user = await findUser(email);
+    if (!user) {
+      return {
+        ok: false,
+        error: {
+          message: "User not found",
+        },
+      };
+    }
+
+    const { password: hash, ...userWithoutPassword } = user;
+    const isValid = await verify(password, hash);
+
+    if (!isValid) {
+      return {
+        ok: false,
+        error: {
+          message: "Unauthorized",
+        },
+      };
+    }
+
+    const jwt = await generateJWT(user.id, user.email);
+
+    return { ok: true, user: userWithoutPassword, jwt };
+  } catch (error) {
+    return {
+      ok: false,
+      error: { message: "Error logging in", errorRaw: error },
+    };
+  }
+};
+
+export const register = async ({
+  name,
+  lastName,
+  email,
+  password: insequrePassword,
+}: RegisterAuth) => {
+  try {
+    const password = await encrypt(insequrePassword);
     const checkUser = await findUser(email);
+
     if (checkUser) {
       return {
         ok: false,
@@ -33,8 +82,9 @@ export const register = async ({ name, lastName, email, password }: Auth) => {
         email: true,
       },
     });
+    const jwt = await generateJWT(user.id, user.email);
 
-    return { ok: true, user };
+    return { ok: true, user, jwt };
   } catch (error) {
     return {
       ok: false,

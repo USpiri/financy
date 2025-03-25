@@ -1,15 +1,25 @@
 import { handleError } from "@/utils/handleError";
 import { Request, Response } from "express";
-import { register as registerAction } from "@/services/auth";
-import { encrypt } from "@/utils/password";
-import { generateJWT } from "@/utils/jwt";
+import {
+  register as registerAction,
+  login as loginAction,
+} from "@/services/auth";
 
 export const login = async (req: Request, res: Response) => {
   const user = req.body;
-  console.log(user);
+  const { email, password } = user;
 
   try {
-    res.send("/auth/login");
+    const status = await loginAction({ email, password });
+
+    if (!status.ok || !status.user) {
+      return handleError(res, status.error!.message, {
+        code: 401,
+        errorRaw: status.error?.errorRaw,
+      });
+    }
+
+    res.status(200).send({ ...status });
   } catch (error) {
     handleError(res, "Error logging in", { errorRaw: error });
   }
@@ -17,21 +27,18 @@ export const login = async (req: Request, res: Response) => {
 
 export const register = async (req: Request, res: Response) => {
   const user = req.body;
-  const { password: insequrePassword } = user;
 
   try {
-    const password = await encrypt(insequrePassword);
-    const status = await registerAction({ ...user, password });
+    const status = await registerAction({ ...user });
 
     if (!status.ok || !status.user) {
       return handleError(res, status.error!.message, {
         errorRaw: status.error?.errorRaw,
+        code: 400,
       });
     }
 
-    const jwt = await generateJWT(status.user.id, status.user.email);
-
-    res.status(201).send({ ...status, jwt });
+    res.status(201).send({ ...status });
   } catch (error) {
     handleError(res, "Error registering", { errorRaw: error });
   }

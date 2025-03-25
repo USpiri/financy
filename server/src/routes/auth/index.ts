@@ -5,7 +5,19 @@ import { check } from "express-validator";
 
 const router = Router();
 
-router.post("/login", login);
+router.post(
+  "/login",
+  [
+    check("email", "Email is required").isEmail(),
+    check(
+      "password",
+      "Password is required on must have at least 6 characters",
+    ).isLength({ min: 6 }),
+    validator,
+  ],
+  login,
+);
+
 router.post(
   "/register",
   [
