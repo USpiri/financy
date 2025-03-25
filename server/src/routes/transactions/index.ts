@@ -4,13 +4,14 @@ import {
   getTransactions,
   updateTransaction,
 } from "@/controllers/transactions";
+import { validateJWT } from "@/middlewares/jwt";
 import { Router } from "express";
 
 const router = Router();
 
-router.get("/", getTransactions);
-router.post("/", createTransaction);
-router.put("/:id", updateTransaction);
-router.delete("/:id", deleteTransaction);
+router.get("/", validateJWT, getTransactions);
+router.post("/", validateJWT, createTransaction);
+router.put("/:id", validateJWT, updateTransaction);
+router.delete("/:id", validateJWT, deleteTransaction);
 
 export { router as transactionsRouter };
