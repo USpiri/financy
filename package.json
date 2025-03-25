@@ -1,0 +1,29 @@
+{
+  "name": "financy",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "private": true,
+  "workspaces": [
+    "app",
+    "server"
+  ],
+  "scripts": {
+    "dev:app": "npm run dev -w app",
+    "dev:server": "npm run dev -w server",
+    "dev": "concurrently \"npm run dev:app\" \"npm run dev:server\""
+  },
+  "keywords": [],
+  "author": "USpiri",
+  "license": "ISC",
+  "devDependencies": {
+    "@eslint/js": "^9.23.0",
+    "concurrently": "^9.1.2",
+    "eslint": "^9.23.0",
+    "eslint-config-prettier": "^10.1.1",
+    "eslint-plugin-prettier": "^5.2.5",
+    "globals": "^16.0.0",
+    "prettier": "^3.5.3",
+    "typescript-eslint": "^8.28.0"
+  }
+}
