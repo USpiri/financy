@@ -1,4 +1,5 @@
 import { LoginPage } from "@/pages/auth/LoginPage";
+import { RegisterPage } from "@/pages/auth/RegisterPage";
 import { DashboardPage } from "@/pages/dashboard/DashboardPage";
 import { TransactionsPage } from "@/pages/transactions/TransactionsPage";
 import { useState } from "react";
@@ -11,18 +12,19 @@ export const AppRouter = () => {
   );
   return (
     <Routes>
-      {status === "not-authenticated" ? (
-        <>
-          <Route path="auth" element={<LoginPage />} />
-          <Route path="/*" element={<Navigate to="/auth" />} />
-        </>
-      ) : (
-        <>
-          <Route index element={<DashboardPage />} />
-          <Route path="transactions" element={<TransactionsPage />} />
-          <Route path="*" element={<Navigate to="/" />} />
-        </>
-      )}
+      {/* {status === "not-authenticated" ? ( */}
+      <>
+        <Route path="auth/login" element={<LoginPage />} />
+        <Route path="auth/register" element={<RegisterPage />} />
+        {/* <Route path="/*" element={<Navigate to="/auth/login" />} /> */}
+      </>
+      {/* ) : ( */}
+      <>
+        <Route index element={<DashboardPage />} />
+        <Route path="transactions" element={<TransactionsPage />} />
+        <Route path="/*" element={<Navigate to="/" />} />
+      </>
+      {/* )} */}
     </Routes>
   );
 };
