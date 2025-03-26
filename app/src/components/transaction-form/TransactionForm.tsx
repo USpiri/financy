@@ -148,7 +148,7 @@ export const TransactionForm = () => {
                 >
                   <CalendarIcon />{" "}
                   {field.value ? (
-                    field.value.toDateString()
+                    field.value.toString()
                   ) : (
                     <span>Pick a date</span>
                   )}
