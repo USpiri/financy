@@ -11,7 +11,7 @@ import { Transaction } from "@/models/transaction";
 export const getTransactions = async (req: Request, res: Response) => {
   const { uid } = req.body;
   try {
-    const status = await getTransactionsAction(uid);
+    const status = await getTransactionsAction(uid, {});
 
     if (!status.ok) {
       return handleError(res, status.error!.message, {

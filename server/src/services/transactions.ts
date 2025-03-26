@@ -1,14 +1,55 @@
 import { prisma } from "@/lib/prisma";
-import { Transaction } from "@/models/transaction";
+import {
+  Transaction,
+  TransactionCategory,
+  TransactionType,
+} from "@/models/transaction";
 
-export const getTransactions = async (userID: string) => {
+interface PaginationOptions {
+  page?: number;
+  take?: number;
+  type?: TransactionType;
+  category?: TransactionCategory;
+  query?: string;
+}
+
+export const getTransactions = async (
+  userID: string,
+  { page = 1, take, type, category, query = "" }: PaginationOptions,
+) => {
+  if (isNaN(page) || page < 1) page = 1;
+
   try {
-    const transactions = await prisma.transaction.findMany({
-      orderBy: { transactionDate: "desc" },
-      where: { userId: userID },
-    });
+    const [transactions, total] = await Promise.all([
+      prisma.transaction.findMany({
+        take,
+        skip: (page - 1) * (take ?? 0),
+        orderBy: { transactionDate: "desc" },
+        where: {
+          userId: userID,
+          category,
+          type,
+          OR: [
+            { note: { contains: query, mode: "insensitive" } },
+            { description: { contains: query, mode: "insensitive" } },
+          ],
+        },
+      }),
+      prisma.transaction.count({ where: { userId: userID } }),
+    ]);
 
-    return { ok: true, transactions };
+    const totalPages = take ? Math.ceil(total / take) : 1;
+
+    return {
+      ok: true,
+      transactions,
+      pagination: {
+        total,
+        totalPages,
+        pageSize: take,
+        currentPage: page,
+      },
+    };
   } catch (error) {
     return {
       ok: false,
