@@ -50,22 +50,20 @@ export const updateTransaction = async (req: Request, res: Response) => {
   const { amount, description, type, note, category } = req.body;
   const { id } = req.params;
 
-  const status = await updateTransactionAction(
-    { amount, description, type, note, category } as Transaction,
-    id,
-  );
-
-  if (!status.ok) {
-    return handleError(res, status.error!.message, {
-      code: 401,
-      errorRaw: status.error?.errorRaw,
-    });
-  }
-
-  res.status(200).send({ ...status });
-
   try {
-    res.send("/transactions/:id");
+    const status = await updateTransactionAction(
+      { amount, description, type, note, category } as Transaction,
+      id,
+    );
+
+    if (!status.ok) {
+      return handleError(res, status.error!.message, {
+        code: 401,
+        errorRaw: status.error?.errorRaw,
+      });
+    }
+
+    res.status(200).send({ ...status });
   } catch (error) {
     handleError(res, "Error updating transaction", { errorRaw: error });
   }
