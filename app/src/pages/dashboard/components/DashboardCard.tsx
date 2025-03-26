@@ -23,7 +23,7 @@ export const DashboardCard = ({ title, value, type }: Props) => {
           className={cn(
             "text-2xl font-semibold tabular-nums @[250px]/card:text-3xl",
             type === "expense" && value !== 0 && "text-rose-700",
-            type === "income" && value !== 0 && "text-rose-700",
+            type === "income" && value !== 0 && "text-emerald-500",
           )}
         >
           {currency(value)}
