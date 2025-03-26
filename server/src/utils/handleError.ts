@@ -12,6 +12,7 @@ export const handleError = (
 ) => {
   const { code, errorRaw } = extra;
   res.status(code ?? 500).send({
+    ok: false,
     error: message,
     detail: errorRaw || null,
   });
