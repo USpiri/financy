@@ -4,12 +4,13 @@ import {
   TransactionCategory,
   TransactionType,
 } from "@/models/transaction";
+import { Prisma } from "@prisma/client";
 
 interface PaginationOptions {
   page?: number;
   take?: number;
-  type?: TransactionType;
-  category?: TransactionCategory;
+  type?: string;
+  category?: string;
   query?: string;
 }
 
@@ -19,26 +20,28 @@ export const getTransactions = async (
 ) => {
   if (isNaN(page) || page < 1) page = 1;
 
+  const filters: Prisma.TransactionWhereInput = { userId: userID };
+  if (category) filters.category = category as TransactionCategory;
+  if (type) filters.type = type as TransactionType;
+  if (query) {
+    filters.OR = [
+      { note: { contains: query, mode: "insensitive" } },
+      { description: { contains: query, mode: "insensitive" } },
+    ];
+  }
+
   try {
     const [transactions, total] = await Promise.all([
       prisma.transaction.findMany({
-        take,
-        skip: (page - 1) * (take ?? 0),
+        take: take || undefined,
+        skip: (page - 1) * (take || 1),
         orderBy: { transactionDate: "desc" },
-        where: {
-          userId: userID,
-          category,
-          type,
-          OR: [
-            { note: { contains: query, mode: "insensitive" } },
-            { description: { contains: query, mode: "insensitive" } },
-          ],
-        },
+        where: filters,
       }),
-      prisma.transaction.count({ where: { userId: userID } }),
+      prisma.transaction.count({ where: filters }),
     ]);
 
-    const totalPages = take ? Math.ceil(total / take) : 1;
+    const totalPages = take ? Math.ceil(total / (take || 1)) : 1;
 
     return {
       ok: true,
@@ -46,7 +49,7 @@ export const getTransactions = async (
       pagination: {
         total,
         totalPages,
-        pageSize: take,
+        pageSize: Math.min(take || total, total),
         currentPage: page,
       },
     };

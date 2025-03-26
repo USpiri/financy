@@ -10,8 +10,19 @@ import { Transaction } from "@/models/transaction";
 
 export const getTransactions = async (req: Request, res: Response) => {
   const { uid } = req.body;
+  const { page, take, category, type, query } = req.query as Record<
+    string,
+    string
+  >;
+
   try {
-    const status = await getTransactionsAction(uid, {});
+    const status = await getTransactionsAction(uid, {
+      page: Number(page),
+      take: Number(take),
+      category,
+      type,
+      query,
+    });
 
     if (!status.ok) {
       return handleError(res, status.error!.message, {
