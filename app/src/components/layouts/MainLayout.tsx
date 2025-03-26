@@ -1,8 +1,11 @@
 import { Link, Outlet } from "react-router";
 import { Button } from "../ui/button";
 import { LogOut, Plus, Sun } from "lucide-react";
+import { useAuth } from "@/hooks/useAuth";
 
 export const MainLayout = () => {
+  const { logout } = useAuth();
+
   return (
     <div>
       <header className="bg-background sticky top-0 z-10 border-b">
@@ -17,7 +20,7 @@ export const MainLayout = () => {
             <Button variant="default">
               <Plus /> <span className="max-sm:hidden">Add Transaction</span>
             </Button>
-            <Button variant="outline" size="icon">
+            <Button variant="outline" size="icon" onClick={logout}>
               <LogOut />
             </Button>
           </div>
