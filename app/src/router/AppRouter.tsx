@@ -1,3 +1,4 @@
+import { MainLayout } from "@/components/layouts/MainLayout";
 import { LoginPage } from "@/pages/auth/LoginPage";
 import { RegisterPage } from "@/pages/auth/RegisterPage";
 import { DashboardPage } from "@/pages/dashboard/DashboardPage";
@@ -20,9 +21,11 @@ export const AppRouter = () => {
       </>
       {/* ) : ( */}
       <>
-        <Route index element={<DashboardPage />} />
-        <Route path="transactions" element={<TransactionsPage />} />
-        <Route path="/*" element={<Navigate to="/" />} />
+        <Route element={<MainLayout />}>
+          <Route index element={<DashboardPage />} />
+          <Route path="transactions" element={<TransactionsPage />} />
+          <Route path="/*" element={<Navigate to="/" />} />
+        </Route>
       </>
       {/* )} */}
     </Routes>
