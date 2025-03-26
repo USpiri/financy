@@ -49,12 +49,13 @@ export const useAuth = () => {
 
   const logout = () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("user");
     logoutStore();
   };
 
   const checkAuth = async () => {
     const token = localStorage.getItem("token");
-    if (!token) return logoutStore("Expired token");
+    if (!token) return logout();
   };
 
   const setStatus = (
@@ -66,6 +67,7 @@ export const useAuth = () => {
     if (status) {
       loginStore(user);
       localStorage.setItem("token", jwt);
+      localStorage.setItem("user", JSON.stringify(user));
     } else {
       logoutStore(error);
       setTimeout(() => {
