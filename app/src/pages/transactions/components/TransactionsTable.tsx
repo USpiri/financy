@@ -40,11 +40,14 @@ export const TransactionsTable = () => {
               {transaction.category}
             </TableCell>
             <TableCell className="opacity-70 max-sm:hidden">
-              {new Date(transaction.createdAt).toLocaleDateString("en-US", {
-                year: "numeric",
-                month: "long",
-                day: "numeric",
-              })}
+              {new Date(transaction.transactionDate).toLocaleDateString(
+                "en-US",
+                {
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                },
+              )}
             </TableCell>
             <TableCell
               className={cn(
