@@ -1,8 +1,9 @@
-import { LogOut, Plus, Sun } from "lucide-react";
+import { LogOut, Plus } from "lucide-react";
 import { Link } from "react-router";
 import { Button } from "../ui/button";
 import { useAuth } from "@/hooks/useAuth";
 import { useUIStore } from "@/store/ui.store";
+import { ThemeButton } from "../theme-button/ThemeButton";
 
 export const Navbar = () => {
   const { logout } = useAuth();
@@ -15,9 +16,7 @@ export const Navbar = () => {
           <h1 className="text-primary font-mono text-sm">Financy</h1>
         </Link>
         <div className="flex gap-2">
-          <Button variant="ghost">
-            <Sun />
-          </Button>
+          <ThemeButton />
           <Button variant="default" onClick={() => openTransactions(true)}>
             <Plus /> <span className="max-sm:hidden">Add Transaction</span>
           </Button>
