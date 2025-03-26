@@ -75,7 +75,7 @@ export const TransactionForm = () => {
             onValueChange={field.onChange}
             {...field}
           >
-            <TabsList className="grid w-full grid-cols-2 border bg-transparent p-0">
+            <TabsList className="grid w-full grid-cols-2 border p-0 dark:bg-transparent">
               <TabsTrigger value="expense" disabled={loadingAction}>
                 Expense
               </TabsTrigger>
