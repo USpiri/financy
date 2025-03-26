@@ -1,4 +1,5 @@
 import { useSummaryStore } from "@/store/summary.store";
+import { calculateUndefinedBalance } from "@/utils/calculate";
 import { getHeaders } from "@/utils/get-headers";
 
 export const useSummary = () => {
@@ -21,5 +22,13 @@ export const useSummary = () => {
     }
   };
 
-  return { summary, loading, loadSummary, clear };
+  return {
+    summary,
+    ...summary,
+    balance: calculateUndefinedBalance(summary?.income, summary?.expense),
+    count: (summary?.incomeCount || 0) + (summary?.expenseCount || 0),
+    loading,
+    loadSummary,
+    clear,
+  };
 };

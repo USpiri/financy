@@ -1,27 +1,22 @@
-import { Label, Pie, PieChart } from "recharts";
-
 import {
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
 import { categoriesChart } from "@/config/category-charts";
-import { useMemo } from "react";
 import { useSummary } from "@/hooks/useSummary";
+import { useMemo } from "react";
+import { Label, Pie, PieChart } from "recharts";
 
 export const TotalCountChart = () => {
-  const { summary } = useSummary();
+  const { categoryStats, count } = useSummary();
 
   const chartData = useMemo(() => {
-    return summary?.categoryStats.map((item) => ({
+    return categoryStats?.map((item) => ({
       ...item,
       fill: `var(--color-${item.category})`,
     }));
-  }, [summary]);
-
-  const total = useMemo(() => {
-    return chartData?.reduce((acc, curr) => acc + curr.count, 0);
-  }, [chartData]);
+  }, [categoryStats]);
 
   return (
     <ChartContainer
@@ -55,14 +50,14 @@ export const TotalCountChart = () => {
                       y={viewBox.cy}
                       className="fill-foreground text-3xl font-bold"
                     >
-                      {(total ?? "").toLocaleString()}
+                      {count}
                     </tspan>
                     <tspan
                       x={viewBox.cx}
                       y={(viewBox.cy || 0) + 24}
                       className="fill-muted-foreground"
                     >
-                      Expenses
+                      Categories
                     </tspan>
                   </text>
                 );

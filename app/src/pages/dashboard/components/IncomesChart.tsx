@@ -10,20 +10,16 @@ import { useMemo } from "react";
 import { useSummary } from "@/hooks/useSummary";
 
 export const IncomesChart = () => {
-  const { summary } = useSummary();
-  const chartData = useMemo(() => {
-    return summary?.categoryStats
-      .filter((i) => i.amount >= 0)
-      .map((item) => ({
-        ...item,
-        amount: Math.abs(item.amount),
-        fill: `var(--color-${item.category})`,
-      }));
-  }, [summary]);
+  const { categoryStats, incomeCount } = useSummary();
 
-  const total = useMemo(() => {
-    return chartData?.reduce((acc, curr) => acc + curr.count, 0);
-  }, [chartData]);
+  const chartData = useMemo(() => {
+    return categoryStats?.map((item) => ({
+      ...item,
+      amount: item.income,
+      fill: `var(--color-${item.category})`,
+    }));
+  }, [categoryStats]);
+
   return (
     <ChartContainer
       config={categoriesChart}
@@ -56,14 +52,14 @@ export const IncomesChart = () => {
                       y={viewBox.cy}
                       className="fill-foreground text-3xl font-bold"
                     >
-                      {(total ?? "").toLocaleString()}
+                      {incomeCount}
                     </tspan>
                     <tspan
                       x={viewBox.cx}
                       y={(viewBox.cy || 0) + 24}
                       className="fill-muted-foreground"
                     >
-                      Incomes
+                      Incomes cat.
                     </tspan>
                   </text>
                 );

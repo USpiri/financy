@@ -3,7 +3,7 @@ import { DashboardCard } from "./DashboardCard";
 import { Skeleton } from "@/components/ui/skeleton";
 
 export const DashboardCards = () => {
-  const { loading, summary } = useSummary();
+  const { loading, balance, income, expense } = useSummary();
   return (
     <>
       {loading ? (
@@ -14,14 +14,12 @@ export const DashboardCards = () => {
         </>
       ) : (
         <>
-          <DashboardCard
-            title="Balance"
-            value={(summary!.income || 0) + (summary!.expense || 0)}
-          />
-          <DashboardCard title="Total Incomes" value={summary!.income || 0} />
+          <DashboardCard title="Balance" value={balance} />
+          <DashboardCard title="Total Incomes" value={income ?? 0} />
           <DashboardCard
             title="Total Expenses"
-            value={Math.abs(summary!.expense || 0)}
+            value={expense ?? 0}
+            type="expense"
           />
         </>
       )}

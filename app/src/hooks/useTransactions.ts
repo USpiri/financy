@@ -1,4 +1,6 @@
+import { Transaction } from "@/models";
 import { useTransactionStore } from "@/store/transactions.store";
+import { useUIStore } from "@/store/ui.store";
 import { getHeaders } from "@/utils/get-headers";
 import { useState } from "react";
 
@@ -8,6 +10,9 @@ export const useTransactions = () => {
   const error = useTransactionStore((state) => state.error);
   const active = useTransactionStore((state) => state.activeTransaction);
   const [loadingAction, setLoadingAction] = useState(false);
+  const toggleTransactionForm = useUIStore(
+    (state) => state.toggleTransactionsModal,
+  );
 
   const load = useTransactionStore((state) => state.loadTransactions);
   const update = useTransactionStore((state) => state.updateTransaction);
@@ -44,6 +49,57 @@ export const useTransactions = () => {
       onError(error);
     }
     setLoadingAction(false);
+    setActive(null);
+  };
+
+  const createTransaction = async (newTransaction: Partial<Transaction>) => {
+    setLoadingAction(true);
+    const { ok, error, transaction } = await fetch(`/api/transactions/`, {
+      method: "POST",
+      headers: { ...getHeaders() },
+      body: JSON.stringify({ ...newTransaction }),
+    }).then((res) => res.json());
+
+    if (ok) {
+      add(transaction);
+    } else {
+      console.log(error);
+      onError(error);
+    }
+    setLoadingAction(false);
+    setActive(null);
+  };
+
+  const updateTransaction = async (data: Partial<Transaction>) => {
+    const newTransaction = {
+      ...active,
+      ...data,
+    };
+
+    setLoadingAction(true);
+    const { ok, error, transaction } = await fetch(
+      `/api/transactions/${newTransaction.id}`,
+      {
+        method: "PUT",
+        headers: { ...getHeaders() },
+        body: JSON.stringify({ ...newTransaction }),
+      },
+    ).then((res) => res.json());
+
+    if (ok) {
+      update(transaction);
+    } else {
+      console.log(error);
+      onError(error);
+    }
+
+    setActive(null);
+    setLoadingAction(false);
+  };
+
+  const setActiveTransaction = (transaction: Transaction) => {
+    setActive(transaction);
+    toggleTransactionForm(true);
   };
 
   // const clear = useSummaryStore((state) => state.clearSummary);
@@ -69,5 +125,8 @@ export const useTransactions = () => {
     active,
     loadTransactions,
     deleteTransaction,
+    createTransaction,
+    setActiveTransaction,
+    updateTransaction,
   };
 };

@@ -28,4 +28,5 @@ export interface Transaction {
   type: TransactionType;
   category: TransactionCategory;
   createdAt: Date;
+  transactionDate: Date;
 }

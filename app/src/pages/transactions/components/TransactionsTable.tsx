@@ -12,9 +12,10 @@ import { useTransactions } from "@/hooks/useTransactions";
 import { currency } from "@/utils/currency-format";
 import { PencilLine } from "lucide-react";
 import { TransactionsDeleteButton } from "./TransactionsDeleteButton";
+import { cn } from "@/lib/utils";
 
 export const TransactionsTable = () => {
-  const { transactions: data } = useTransactions();
+  const { transactions: data, setActiveTransaction } = useTransactions();
   return (
     <Table>
       <TableCaption>A list of your recent transactions.</TableCaption>
@@ -45,11 +46,23 @@ export const TransactionsTable = () => {
                 day: "numeric",
               })}
             </TableCell>
-            <TableCell className="font-mono tabular-nums">
+            <TableCell
+              className={cn(
+                "font-mono tabular-nums opacity-95",
+                transaction.type === "expense"
+                  ? "text-rose-500"
+                  : "text-emerald-500",
+              )}
+            >
               {currency(transaction.amount)}
             </TableCell>
             <TableCell className="flex justify-end gap-2 text-right">
-              <Button variant="outline" size="icon" className="max-sm:size-8">
+              <Button
+                variant="outline"
+                size="icon"
+                className="max-sm:size-8"
+                onClick={() => setActiveTransaction(transaction)}
+              >
                 <PencilLine />
               </Button>
               <TransactionsDeleteButton transactionId={transaction.id} />

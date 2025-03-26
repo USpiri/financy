@@ -1,6 +1,7 @@
 import { Outlet } from "react-router";
 import { Navbar } from "../navbar/Navbar";
 import { Footer } from "../footer/Footer";
+import { TransactionDialog } from "../transaction-dialog/TransactionDialog";
 
 export const MainLayout = () => {
   return (
@@ -10,6 +11,7 @@ export const MainLayout = () => {
         <Outlet />
       </main>
       <Footer />
+      <TransactionDialog />
     </div>
   );
 };

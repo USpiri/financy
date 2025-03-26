@@ -10,21 +10,15 @@ import { useMemo } from "react";
 import { useSummary } from "@/hooks/useSummary";
 
 export const ExpensesChart = () => {
-  const { summary } = useSummary();
+  const { categoryStats, expenseCount } = useSummary();
 
   const chartData = useMemo(() => {
-    return summary?.categoryStats
-      .filter((i) => i.amount < 0)
-      .map((item) => ({
-        ...item,
-        amount: Math.abs(item.amount),
-        fill: `var(--color-${item.category})`,
-      }));
-  }, [summary]);
-
-  const total = useMemo(() => {
-    return chartData?.reduce((acc, curr) => acc + curr.count, 0);
-  }, [chartData]);
+    return categoryStats?.map((item) => ({
+      ...item,
+      amount: item.expense,
+      fill: `var(--color-${item.category})`,
+    }));
+  }, [categoryStats]);
 
   return (
     <ChartContainer
@@ -58,14 +52,14 @@ export const ExpensesChart = () => {
                       y={viewBox.cy}
                       className="fill-foreground text-3xl font-bold"
                     >
-                      {(total ?? "").toLocaleString()}
+                      {expenseCount}
                     </tspan>
                     <tspan
                       x={viewBox.cx}
                       y={(viewBox.cy || 0) + 24}
                       className="fill-muted-foreground"
                     >
-                      Expenses
+                      Expenses cat.
                     </tspan>
                   </text>
                 );

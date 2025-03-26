@@ -5,14 +5,16 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
+import { TransactionType } from "@/models";
 import { currency } from "@/utils/currency-format";
 
 interface Props {
   title: string;
   value: number;
+  type?: TransactionType;
 }
 
-export const DashboardCard = ({ title, value }: Props) => {
+export const DashboardCard = ({ title, value, type = "income" }: Props) => {
   return (
     <Card>
       <CardHeader>
@@ -20,7 +22,7 @@ export const DashboardCard = ({ title, value }: Props) => {
         <CardTitle
           className={cn(
             "text-2xl font-semibold tabular-nums @[250px]/card:text-3xl",
-            value < 0 && "text-rose-700",
+            type === "expense" && "text-rose-700",
           )}
         >
           {currency(value)}
