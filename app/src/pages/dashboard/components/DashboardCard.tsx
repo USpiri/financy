@@ -14,7 +14,7 @@ interface Props {
   type?: TransactionType;
 }
 
-export const DashboardCard = ({ title, value, type = "income" }: Props) => {
+export const DashboardCard = ({ title, value, type }: Props) => {
   return (
     <Card>
       <CardHeader>
@@ -22,7 +22,8 @@ export const DashboardCard = ({ title, value, type = "income" }: Props) => {
         <CardTitle
           className={cn(
             "text-2xl font-semibold tabular-nums @[250px]/card:text-3xl",
-            type === "expense" && "text-rose-700",
+            type === "expense" && value !== 0 && "text-rose-700",
+            type === "income" && value !== 0 && "text-rose-700",
           )}
         >
           {currency(value)}

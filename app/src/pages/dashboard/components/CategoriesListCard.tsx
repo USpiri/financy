@@ -4,7 +4,7 @@ import { useSummary } from "@/hooks/useSummary";
 import { Skeleton } from "@/components/ui/skeleton";
 
 export const CategoriesListCard = () => {
-  const { loading } = useSummary();
+  const { loading, count } = useSummary();
 
   return (
     <Card>
@@ -12,7 +12,15 @@ export const CategoriesListCard = () => {
         <CardTitle>Most used categories</CardTitle>
       </CardHeader>
       <CardContent>
-        {loading ? <Skeleton className="h-80" /> : <CategoriesList />}
+        {loading ? (
+          <Skeleton className="h-80" />
+        ) : count === 0 ? (
+          <p className="text-center text-sm font-semibold opacity-70">
+            No transactions found.
+          </p>
+        ) : (
+          <CategoriesList />
+        )}
       </CardContent>
     </Card>
   );

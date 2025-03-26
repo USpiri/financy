@@ -14,7 +14,7 @@ import { useSummary } from "@/hooks/useSummary";
 import { Skeleton } from "@/components/ui/skeleton";
 
 export function CategoriesCharts() {
-  const { loading } = useSummary();
+  const { loading, count } = useSummary();
 
   return (
     <Card className="flex flex-col">
@@ -31,6 +31,10 @@ export function CategoriesCharts() {
           <CardContent>
             <Skeleton className="h-72" />
           </CardContent>
+        ) : count === 0 ? (
+          <p className="text-center text-sm font-semibold opacity-70">
+            No transactions found.
+          </p>
         ) : (
           <CardContent className="flex-1 pb-0">
             <>

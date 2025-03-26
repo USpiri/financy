@@ -7,7 +7,7 @@ import { TransactionsTable } from "./components/TransactionsTable";
 import { useUIStore } from "@/store/ui.store";
 
 export const TransactionsPage = () => {
-  const { loadTransactions, loading } = useTransactions();
+  const { loadTransactions, loading, transactions } = useTransactions();
   const toggleTransactions = useUIStore(
     (state) => state.toggleTransactionsModal,
   );
@@ -33,6 +33,8 @@ export const TransactionsPage = () => {
           <CardContent className="px-2">
             {loading ? (
               <p className="w-full text-center text-sm">Loading...</p>
+            ) : transactions.length === 0 ? (
+              <p className="text-center text-sm">No transactions found.</p>
             ) : (
               <TransactionsTable />
             )}

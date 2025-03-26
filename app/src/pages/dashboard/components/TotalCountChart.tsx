@@ -18,6 +18,13 @@ export const TotalCountChart = () => {
     }));
   }, [categoryStats]);
 
+  if (count === 0)
+    return (
+      <p className="h-[250px] text-center text-sm font-semibold opacity-50">
+        No transactions found.
+      </p>
+    );
+
   return (
     <ChartContainer
       config={categoriesChart}

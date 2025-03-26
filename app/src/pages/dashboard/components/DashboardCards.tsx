@@ -15,7 +15,11 @@ export const DashboardCards = () => {
       ) : (
         <>
           <DashboardCard title="Balance" value={balance} />
-          <DashboardCard title="Total Incomes" value={income ?? 0} />
+          <DashboardCard
+            title="Total Incomes"
+            value={income ?? 0}
+            type="income"
+          />
           <DashboardCard
             title="Total Expenses"
             value={expense ?? 0}
