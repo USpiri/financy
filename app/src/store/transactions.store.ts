@@ -1,4 +1,4 @@
-import { Transaction } from "@/models";
+import { Pagination, Transaction } from "@/models";
 import { create } from "zustand";
 
 interface State {
@@ -6,6 +6,7 @@ interface State {
   transactions: Transaction[];
   activeTransaction: Transaction | null;
   error: string | null;
+  pagination: Pagination | null;
 
   loadTransactions: (transactions: Transaction[]) => void;
   addTransaction: (transaction: Transaction) => void;
@@ -14,6 +15,7 @@ interface State {
   setActive: (transaction: Transaction | null) => void;
   clearTransactions: () => void;
   onError: (error?: string) => void;
+  setPagination: (value: Pagination | null) => void;
 }
 
 const initialState = {
@@ -21,6 +23,7 @@ const initialState = {
   error: null,
   transactions: [],
   activeTransaction: null,
+  pagination: null,
 };
 
 export const useTransactionStore = create<State>()((set, get) => ({
@@ -51,6 +54,8 @@ export const useTransactionStore = create<State>()((set, get) => ({
       transactions: transactions.filter((t) => t.id !== id),
     });
   },
+
+  setPagination: (pagination) => set({ pagination }),
 
   onError: (error) => set({ ...initialState, error }),
   clearTransactions: () => set(initialState),

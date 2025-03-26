@@ -5,17 +5,19 @@ import { Plus } from "lucide-react";
 import { useEffect } from "react";
 import { TransactionsTable } from "./components/TransactionsTable";
 import { useUIStore } from "@/store/ui.store";
-import { Link } from "react-router";
+import { Link, useSearchParams } from "react-router";
+import { TransactionsFilters } from "./components/TransactionsFilters";
 
 export const TransactionsPage = () => {
   const { loadTransactions, loading, transactions } = useTransactions();
   const toggleTransactions = useUIStore(
     (state) => state.toggleTransactionsModal,
   );
+  const [searchParams] = useSearchParams();
 
   useEffect(() => {
     loadTransactions();
-  }, []);
+  }, [searchParams]);
 
   return (
     <div>
@@ -34,6 +36,9 @@ export const TransactionsPage = () => {
           Go to Dashboard
         </Link>
       </p>
+      <div className="mt-5 flex gap-2">
+        <TransactionsFilters />
+      </div>
       <section className="mt-5">
         <Card className="p-3">
           <CardContent className="px-2">

@@ -13,12 +13,15 @@ import { currency } from "@/utils/currency-format";
 import { PencilLine } from "lucide-react";
 import { TransactionsDeleteButton } from "./TransactionsDeleteButton";
 import { cn } from "@/lib/utils";
+import { TransactionsPagination } from "./TransactionsPagination";
 
 export const TransactionsTable = () => {
   const { transactions: data, setActiveTransaction } = useTransactions();
   return (
     <Table>
-      <TableCaption>A list of your recent transactions.</TableCaption>
+      <TableCaption>
+        <TransactionsPagination />A list of your recent transactions.
+      </TableCaption>
       <TableHeader>
         <TableRow>
           <TableHead className="max-sm:hidden">Invoice</TableHead>

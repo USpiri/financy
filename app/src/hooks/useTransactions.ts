@@ -3,13 +3,14 @@ import { useTransactionStore } from "@/store/transactions.store";
 import { useUIStore } from "@/store/ui.store";
 import { getHeaders } from "@/utils/get-headers";
 import { useState } from "react";
+import { useSearchParams } from "react-router";
 
 export const useTransactions = () => {
   const transactions = useTransactionStore((state) => state.transactions);
   const loading = useTransactionStore((state) => state.loading);
   const error = useTransactionStore((state) => state.error);
   const active = useTransactionStore((state) => state.activeTransaction);
-  const [loadingAction, setLoadingAction] = useState(false);
+  const pagination = useTransactionStore((state) => state.pagination);
   const toggleTransactionForm = useUIStore(
     (state) => state.toggleTransactionsModal,
   );
@@ -21,16 +22,24 @@ export const useTransactions = () => {
     (state) => state.deleteTransaction,
   );
   const add = useTransactionStore((state) => state.addTransaction);
+  const setPagination = useTransactionStore((state) => state.setPagination);
   // const clear = useTransactionStore((state) => state.clearTransactions);
   const onError = useTransactionStore((state) => state.onError);
 
+  const [loadingAction, setLoadingAction] = useState(false);
+  const [searchParams] = useSearchParams();
+
   const loadTransactions = async () => {
-    const { ok, transactions, error } = await fetch("/api/transactions", {
-      headers: { ...getHeaders() },
-    }).then((res) => res.json());
+    const { ok, transactions, error, pagination } = await fetch(
+      `/api/transactions?${searchParams.toString()}`,
+      {
+        headers: { ...getHeaders() },
+      },
+    ).then((res) => res.json());
 
     if (ok) {
       load(transactions);
+      setPagination(pagination);
     } else {
       onError(error);
     }
@@ -105,10 +114,13 @@ export const useTransactions = () => {
     loadingAction,
     error,
     active,
+    pagination,
+
     loadTransactions,
     deleteTransaction,
     createTransaction,
     setActiveTransaction,
     updateTransaction,
+    setPagination,
   };
 };
