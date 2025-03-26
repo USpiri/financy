@@ -3,13 +3,15 @@ import { DashboardCards } from "./components/DashboardCards";
 import { useEffect } from "react";
 import { useSummary } from "@/hooks/useSummary";
 import { CategoriesListCard } from "./components/CategoriesListCard";
+import { useUIStore } from "@/store/ui.store";
 
 export const DashboardPage = () => {
   const { loadSummary } = useSummary();
+  const isTransactionsOpen = useUIStore((store) => store.isTransactionsOpen);
 
   useEffect(() => {
     loadSummary();
-  }, []);
+  }, [isTransactionsOpen]);
 
   return (
     <div className="space-y-5">
