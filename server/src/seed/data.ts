@@ -1,8 +1,4 @@
-import {
-  Transaction,
-  TransactionType,
-  TransactionCategory,
-} from "../models/transaction";
+import { Transaction, TransactionCategory } from "../models/transaction";
 import { hashSync } from "bcryptjs";
 
 const categories: TransactionCategory[] = [
