@@ -18,7 +18,7 @@ export const getTransactions = async (userID: string) => {
 };
 
 export const createTransaction = async (
-  { amount, type, description, note, category }: Transaction,
+  { amount, type, description, note, category, transactionDate }: Transaction,
   userID: string,
 ) => {
   try {
@@ -29,6 +29,7 @@ export const createTransaction = async (
         description,
         note,
         category,
+        transactionDate: transactionDate ?? new Date(),
         userId: userID,
       },
     });
@@ -45,13 +46,20 @@ export const createTransaction = async (
 };
 
 export const updateTransaction = async (
-  { amount, type, description, note, category }: Transaction,
+  { amount, type, description, note, category, transactionDate }: Transaction,
   id: string,
 ) => {
   try {
     const transaction = await prisma.transaction.update({
       where: { id },
-      data: { amount, type, description, note, category },
+      data: {
+        amount,
+        type,
+        description,
+        note,
+        category,
+        transactionDate: transactionDate ?? new Date(),
+      },
     });
     return { ok: true, transaction };
   } catch (error) {

@@ -39,6 +39,9 @@ export const isValidTransaction = [
   check("category").notEmpty(),
   check("category").custom(isValidTransactionCategory),
   check("amount", "Amount is required").notEmpty(),
+  check("amount", "Amount must be a Number").isFloat(),
+  check("amount", "Amount must be a positive number").isFloat({ gt: 0 }),
   check("type", "Type is required").notEmpty(),
   check("type", "Type must be a valid type").custom(isValidTransactionType),
+  check("transactionDate", "Transaction date is required").notEmpty(),
 ];

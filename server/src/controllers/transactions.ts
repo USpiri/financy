@@ -26,10 +26,18 @@ export const getTransactions = async (req: Request, res: Response) => {
 };
 
 export const createTransaction = async (req: Request, res: Response) => {
-  const { uid, amount, description, type, note, category } = req.body;
+  const { uid, amount, description, type, note, category, transactionDate } =
+    req.body;
   try {
     const status = await createTransactionAction(
-      { amount, description, type, note, category } as Transaction,
+      {
+        amount,
+        description,
+        type,
+        note,
+        category,
+        transactionDate,
+      } as Transaction,
       uid,
     );
 
@@ -47,12 +55,20 @@ export const createTransaction = async (req: Request, res: Response) => {
 };
 
 export const updateTransaction = async (req: Request, res: Response) => {
-  const { amount, description, type, note, category } = req.body;
+  const { amount, description, type, note, category, transactionDate } =
+    req.body;
   const { id } = req.params;
 
   try {
     const status = await updateTransactionAction(
-      { amount, description, type, note, category } as Transaction,
+      {
+        amount,
+        description,
+        type,
+        note,
+        category,
+        transactionDate,
+      } as Transaction,
       id,
     );
 

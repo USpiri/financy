@@ -51,10 +51,10 @@ const descriptions = [
   "Auto-debited from bank account",
 ];
 
-const randAmount = (type: TransactionType) => {
+const randAmount = () => {
   const baseAmount = Math.random() * 1000;
   const amount = Math.round(baseAmount * 10) / 10;
-  return type === "expense" ? -amount : amount;
+  return amount;
 };
 
 const randDescription = () =>
@@ -71,10 +71,11 @@ export const generateRandomTransactions = (count: number = 10) => {
   return Array.from({ length: count }).map(() => {
     const type = Math.random() > 0.5 ? "income" : "expense";
     return {
-      amount: randAmount(type),
+      amount: randAmount(),
       description: randDescription(),
       note: randNote(),
       category: randCategory(),
+      transactionDate: new Date(),
       type,
     } as Transaction;
   });

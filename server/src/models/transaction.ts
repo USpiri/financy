@@ -27,4 +27,5 @@ export interface Transaction {
   note: string;
   type: TransactionType;
   category: TransactionCategory;
+  transactionDate?: Date;
 }
