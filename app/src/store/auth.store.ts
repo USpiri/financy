@@ -13,18 +13,23 @@ interface State {
   checkAuth: () => void;
   clearError: () => void;
 }
+const initialState = {
+  status: "not-authenticated" as AuthStatus,
+  error: null,
+  user: null,
+};
 
-const initialState = () => {
+const init = () => {
   const user = JSON.parse(localStorage.getItem("user") ?? "null");
   return {
+    ...initialState,
     status: (user ? "authenticated" : "not-authenticated") as AuthStatus,
-    error: null,
     user: user || null,
   };
 };
 
 export const useAuthStore = create<State>()((set) => ({
-  ...initialState(),
+  ...init(),
   login: (user) => set({ status: "authenticated", user }),
   logout: (error) => set({ ...initialState, error }),
   checkAuth: () => set({ status: "checking" }),
