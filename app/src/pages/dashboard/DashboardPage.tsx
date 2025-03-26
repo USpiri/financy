@@ -18,7 +18,7 @@ export const DashboardPage = () => {
 
   return (
     <div className="space-y-5">
-      <header className="mt-4 flex items-center justify-between">
+      <header className="mt-4 flex items-end justify-between sm:items-center">
         <div>
           <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
           <p className="text-sm font-semibold opacity-80">
@@ -28,7 +28,7 @@ export const DashboardPage = () => {
         <div>
           <Link
             to="/transactions"
-            className="me-8 text-sm opacity-60 hover:underline hover:opacity-80"
+            className="text-sm opacity-60 hover:underline hover:opacity-80 sm:me-8"
           >
             See transactions
           </Link>
