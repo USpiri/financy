@@ -16,7 +16,7 @@ export const DashboardCards = () => {
         <>
           <DashboardCard
             title="Balance"
-            value={summary!.income || 0 - summary!.expense || 0}
+            value={(summary!.income || 0) + (summary!.expense || 0)}
           />
           <DashboardCard title="Total Incomes" value={summary!.income || 0} />
           <DashboardCard

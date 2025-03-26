@@ -8,59 +8,20 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { useSummary } from "@/hooks/useSummary";
 import { currency } from "@/utils/currency-format";
 import { useMemo } from "react";
 
-const data = [
-  {
-    category: "rent",
-    count: 1,
-    amount: 879.9,
-  },
-  {
-    category: "food",
-    count: 2,
-    amount: 58.40000000000003,
-    fill: "var(--color-food)",
-  },
-  {
-    category: "other",
-    count: 1,
-    amount: -873.5,
-  },
-  {
-    category: "travel",
-    count: 2,
-    amount: 629.1999999999999,
-  },
-  {
-    category: "debts",
-    count: 1,
-    amount: 618.8,
-  },
-  {
-    category: "refunds",
-    count: 1,
-    amount: -526.1,
-  },
-  {
-    category: "utilities",
-    count: 1,
-    amount: 333.9,
-  },
-  {
-    category: "healthcare",
-    count: 1,
-    amount: 957.5,
-  },
-]
-  .sort((a, b) => b.count - a.count)
-  .slice(0, 8);
-
 export const CategoriesList = () => {
+  const { summary } = useSummary();
+
+  const data = useMemo(() => {
+    return summary!.categoryStats.sort((a, b) => b.count - a.count).slice(0, 8);
+  }, [summary]);
+
   const total = useMemo(() => {
     return data.reduce((acc, curr) => acc + curr.amount, 0);
-  }, []);
+  }, [data]);
 
   return (
     <Table>

@@ -1,9 +1,8 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { CategoriesCharts } from "./components/CategoriesCharts";
-import { CategoriesList } from "./components/CategoriesList";
 import { DashboardCards } from "./components/DashboardCards";
 import { useEffect } from "react";
 import { useSummary } from "@/hooks/useSummary";
+import { CategoriesListCard } from "./components/CategoriesListCard";
 
 export const DashboardPage = () => {
   const { loadSummary } = useSummary();
@@ -22,14 +21,7 @@ export const DashboardPage = () => {
       </section>
       <section className="grid gap-4 md:grid-cols-2 md:gap-2">
         <CategoriesCharts />
-        <Card>
-          <CardHeader>
-            <CardTitle>Details</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <CategoriesList />
-          </CardContent>
-        </Card>
+        <CategoriesListCard />
       </section>
     </div>
   );
