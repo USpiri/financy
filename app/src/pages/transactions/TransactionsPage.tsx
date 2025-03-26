@@ -131,7 +131,7 @@ export const TransactionsPage = () => {
       <header className="mt-4 flex justify-between">
         <h1 className="text-3xl font-bold tracking-tight">Transactions</h1>
         <Button variant="default" className="max-sm:hidden">
-          <Plus /> <span className="max-sm:hidden">Add Transaction</span>
+          <Plus /> Add Transaction
         </Button>
       </header>
       <section className="">
