@@ -23,13 +23,23 @@ export const createTransaction = async (
 ) => {
   try {
     const transaction = await prisma.transaction.create({
-      data: { amount, type, description, note, category, userId: userID },
+      data: {
+        amount: parseFloat(amount.toString()),
+        type,
+        description,
+        note,
+        category,
+        userId: userID,
+      },
     });
     return { ok: true, transaction };
   } catch (error) {
     return {
       ok: false,
-      error: { message: "Error creating transaction", errorRaw: error },
+      error: {
+        message: "Error creating transaction",
+        errorRaw: error,
+      },
     };
   }
 };
