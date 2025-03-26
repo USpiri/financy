@@ -5,6 +5,7 @@ import { Plus } from "lucide-react";
 import { useEffect } from "react";
 import { TransactionsTable } from "./components/TransactionsTable";
 import { useUIStore } from "@/store/ui.store";
+import { Link } from "react-router";
 
 export const TransactionsPage = () => {
   const { loadTransactions, loading, transactions } = useTransactions();
@@ -17,7 +18,7 @@ export const TransactionsPage = () => {
   }, []);
 
   return (
-    <div className="space-y-5">
+    <div>
       <header className="mt-4 flex justify-between">
         <h1 className="text-3xl font-bold tracking-tight">Transactions</h1>
         <Button
@@ -28,7 +29,12 @@ export const TransactionsPage = () => {
           <Plus /> Add Transaction
         </Button>
       </header>
-      <section className="">
+      <p className="-mt-1">
+        <Link to="/" className="text-sm opacity-80 hover:underline">
+          Go to Dashboard
+        </Link>
+      </p>
+      <section className="mt-5">
         <Card className="p-3">
           <CardContent className="px-2">
             {loading ? (

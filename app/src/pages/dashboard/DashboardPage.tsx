@@ -4,9 +4,12 @@ import { useEffect } from "react";
 import { useSummary } from "@/hooks/useSummary";
 import { CategoriesListCard } from "./components/CategoriesListCard";
 import { useUIStore } from "@/store/ui.store";
+import { useAuth } from "@/hooks/useAuth";
+import { Link } from "react-router";
 
 export const DashboardPage = () => {
   const { loadSummary } = useSummary();
+  const { user } = useAuth();
   const isTransactionsOpen = useUIStore((store) => store.isTransactionsOpen);
 
   useEffect(() => {
@@ -15,8 +18,21 @@ export const DashboardPage = () => {
 
   return (
     <div className="space-y-5">
-      <header className="mt-4">
-        <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
+      <header className="mt-4 flex items-center justify-between">
+        <div>
+          <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
+          <p className="text-sm font-semibold opacity-80">
+            Welcome {user?.name} {user?.lastName}
+          </p>
+        </div>
+        <div>
+          <Link
+            to="/transactions"
+            className="me-8 text-sm opacity-60 hover:underline hover:opacity-80"
+          >
+            See transactions
+          </Link>
+        </div>
       </header>
       <section className="flex justify-between gap-2 *:flex-1 max-sm:flex-col">
         <DashboardCards />
