@@ -4,7 +4,7 @@ import { Transaction } from "@/models/transaction";
 export const getTransactions = async (userID: string) => {
   try {
     const transactions = await prisma.transaction.findMany({
-      orderBy: { createdAt: "desc" },
+      orderBy: { transactionDate: "desc" },
       where: { userId: userID },
     });
 
