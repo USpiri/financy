@@ -21,7 +21,7 @@ export const useTransactions = () => {
     (state) => state.deleteTransaction,
   );
   const add = useTransactionStore((state) => state.addTransaction);
-  const clear = useTransactionStore((state) => state.clearTransactions);
+  // const clear = useTransactionStore((state) => state.clearTransactions);
   const onError = useTransactionStore((state) => state.onError);
 
   const loadTransactions = async () => {
@@ -49,7 +49,6 @@ export const useTransactions = () => {
       onError(error);
     }
     setLoadingAction(false);
-    setActive(null);
   };
 
   const createTransaction = async (newTransaction: Partial<Transaction>) => {
@@ -67,7 +66,6 @@ export const useTransactions = () => {
       onError(error);
     }
     setLoadingAction(false);
-    setActive(null);
   };
 
   const updateTransaction = async (data: Partial<Transaction>) => {
@@ -93,7 +91,6 @@ export const useTransactions = () => {
       onError(error);
     }
 
-    setActive(null);
     setLoadingAction(false);
   };
 
@@ -101,21 +98,6 @@ export const useTransactions = () => {
     setActive(transaction);
     toggleTransactionForm(true);
   };
-
-  // const clear = useSummaryStore((state) => state.clearSummary);
-  // const onError = useSummaryStore((state) => state.onError);
-  //
-  // const loadSummary = async () => {
-  //   const { ok, summary, error } = await fetch("/api/summary", {
-  //     headers: { ...getHeaders() },
-  //   }).then((res) => res.json());
-  //
-  //   if (ok) {
-  //     load(summary);
-  //   } else {
-  //     onError(error);
-  //   }
-  // };
 
   return {
     transactions,
