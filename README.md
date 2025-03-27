@@ -26,14 +26,14 @@
 </p>
 
 <p align="center">
-  <strong><a href="https://thingsshop.vercel.app/" target="_blank">Preview here</a></strong>
+  <strong><a href="https://financy-app-theta.vercel.app/" target="_blank">Preview here</a></strong>
 </p>
 
 ## About Financy
 
 Financy is a high-performance, minimalist expenses tracker fullstack application built with [React](https://react.dev/) 19 and [Express](https://expressjs.com/). With users, transactions, charts, tables and filter systems powered by [Prisma](https://www.prisma.io/). User session and routes are handled with [JWT tokens](https://es.wikipedia.org/wiki/JSON_Web_Token) and [Bcrypt](https://www.npmjs.com/package/bcrypt), ensuring Security.
 
-See the [demo here](https://thingsshop.vercel.app/).
+See the [demo here](https://financy-app-theta.vercel.app/).
 
 ![financy](https://github.com/user-attachments/assets/1a79fd8a-62f9-49bf-9d0d-e7de0aa897cb)
 
@@ -150,7 +150,7 @@ Aquí está el documento con un formato corregido:
    - Apply Prisma migrations:
 
      ```bash
-     npx prisma migrate dev
+     npm prisma generate && npx prisma migrate dev
      ```
 
    - Return to the `financy` folder:
