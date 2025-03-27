@@ -2,9 +2,12 @@
   publish = "dist"
   functions = "netlify/functions"
 [functions]
+node_bundler = "esbuild"
   external_node_modules = ["express"]
 [[redirects]]
   force = true
   status = 200
   from = "/*"
   to = "/.netlify/functions/index"
+[[plugins]]
+  package = "@netlify/plugin-functions-install-core"
