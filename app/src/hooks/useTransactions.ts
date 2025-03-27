@@ -31,6 +31,10 @@ export const useTransactions = () => {
   const [searchParams] = useSearchParams();
 
   const loadTransactions = async () => {
+    if (!searchParams.get("take")) {
+      searchParams.set("take", "5");
+    }
+
     const { ok, transactions, error, pagination } = await fetch(
       `/api/transactions?${searchParams.toString()}`,
       {
