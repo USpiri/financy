@@ -9,6 +9,7 @@
     "server"
   ],
   "scripts": {
+    "build": "npm run biuld -w app && npm run biuld -w server",
     "dev:app": "npm run dev -w app",
     "dev:server": "npm run dev -w server",
     "dev": "concurrently \"npm run dev:app\" \"npm run dev:server\"",
