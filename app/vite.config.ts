@@ -3,7 +3,10 @@ import react from "@vitejs/plugin-react-swc";
 import tailwindcss from "@tailwindcss/vite";
 import path from "path";
 
-const API_URL = process.env.VITE_API_URL || "http://localhost:3000";
+const API_URL =
+  process.env.NODE_ENV === "production"
+    ? "https://financy-server.vercel.app/"
+    : "http://localhost:3000";
 
 // https://vite.dev/config/
 export default defineConfig({
