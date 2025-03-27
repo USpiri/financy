@@ -9,14 +9,15 @@ import { Link, useSearchParams } from "react-router";
 import { TransactionsFilters } from "./components/TransactionsFilters";
 
 export const TransactionsPage = () => {
-  const { loadTransactions, loading, transactions } = useTransactions();
+  const { debouncedLoadTransactions, loading, transactions } =
+    useTransactions();
   const toggleTransactions = useUIStore(
     (state) => state.toggleTransactionsModal,
   );
   const [searchParams] = useSearchParams();
 
   useEffect(() => {
-    loadTransactions();
+    debouncedLoadTransactions();
   }, [searchParams]);
 
   return (

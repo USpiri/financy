@@ -4,6 +4,7 @@ import { useUIStore } from "@/store/ui.store";
 import { getHeaders } from "@/utils/get-headers";
 import { useState } from "react";
 import { useSearchParams } from "react-router";
+import { useDebouncedCallback } from "use-debounce";
 
 export const useTransactions = () => {
   const transactions = useTransactionStore((state) => state.transactions);
@@ -44,6 +45,8 @@ export const useTransactions = () => {
       onError(error);
     }
   };
+
+  const debouncedLoadTransactions = useDebouncedCallback(loadTransactions, 300);
 
   const deleteTransaction = async (id: string) => {
     setLoadingAction(true);
@@ -122,5 +125,7 @@ export const useTransactions = () => {
     setActiveTransaction,
     updateTransaction,
     setPagination,
+
+    debouncedLoadTransactions,
   };
 };

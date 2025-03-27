@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/select";
 import { useTransactions } from "@/hooks/useTransactions";
 import { cn } from "@/lib/utils";
+import { useEffect } from "react";
 import { useSearchParams } from "react-router";
 
 const tableSizes = [5, 10, 20, { label: "All", value: "null" }];
@@ -26,7 +27,6 @@ export const TransactionsPagination = () => {
   const { totalPages, currentPage, pageSize } = pagination || {
     totalPages: 1,
     currentPage: 1,
-    pageSize: 1,
   };
 
   const updateFilter = (key: string, value: string) => {
@@ -38,6 +38,14 @@ export const TransactionsPagination = () => {
     }
     setSearchParams(newParams);
   };
+
+  useEffect(() => {
+    if (!searchParams.get("take")) {
+      const newParams = new URLSearchParams(searchParams);
+      newParams.set("take", String(pageSize) || "5");
+      setSearchParams(newParams, { replace: true });
+    }
+  }, []);
 
   return (
     <div className="flex">
