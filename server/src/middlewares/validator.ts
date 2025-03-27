@@ -1,4 +1,4 @@
-import { handleError } from "@/utils/handleError";
+import { handleError } from "../utils/handleError";
 import { Request, Response, NextFunction } from "express";
 import { validationResult } from "express-validator";
 

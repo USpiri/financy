@@ -1,5 +1,5 @@
-import { login, register } from "@/controllers/auth";
-import { validator } from "@/middlewares/validator";
+import { login, register } from "../../controllers/auth";
+import { validator } from "../../middlewares/validator";
 import { Router } from "express";
 import { check } from "express-validator";
 

@@ -3,10 +3,10 @@ import {
   deleteTransaction,
   getTransactions,
   updateTransaction,
-} from "@/controllers/transactions";
-import { validateJWT } from "@/middlewares/jwt";
-import { validator } from "@/middlewares/validator";
-import { isValidTransaction } from "@/utils/validators/transaction";
+} from "../../controllers/transactions";
+import { validateJWT } from "../../middlewares/jwt";
+import { validator } from "../../middlewares/validator";
+import { isValidTransaction } from "../../utils/validators/transaction";
 import { Router } from "express";
 
 const router = Router();

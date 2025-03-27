@@ -1,6 +1,6 @@
-import { prisma } from "@/lib/prisma";
-import { generateJWT } from "@/utils/jwt";
-import { encrypt, verify } from "@/utils/password";
+import { prisma } from "../lib/prisma";
+import { generateJWT } from "../utils/jwt";
+import { encrypt, verify } from "../utils/password";
 
 interface LoginAuth {
   email: string;

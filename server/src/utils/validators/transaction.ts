@@ -1,4 +1,4 @@
-import { TransactionCategory, TransactionType } from "@/models/transaction";
+import { TransactionCategory, TransactionType } from "../../models/transaction";
 import { check } from "express-validator";
 const categories: TransactionCategory[] = [
   "salary",

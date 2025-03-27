@@ -1,6 +1,6 @@
-import { handleError } from "@/utils/handleError";
+import { handleError } from "../utils/handleError";
 import { Request, Response } from "express";
-import { getSummary as getTransactionsSummary } from "@/services/summary";
+import { getSummary as getTransactionsSummary } from "../services/summary";
 
 export const getSummary = async (req: Request, res: Response) => {
   const { uid } = req.body;

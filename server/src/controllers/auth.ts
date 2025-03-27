@@ -1,9 +1,9 @@
-import { handleError } from "@/utils/handleError";
+import { handleError } from "../utils/handleError";
 import { Request, Response } from "express";
 import {
   register as registerAction,
   login as loginAction,
-} from "@/services/auth";
+} from "../services/auth";
 
 export const login = async (req: Request, res: Response) => {
   const user = req.body;

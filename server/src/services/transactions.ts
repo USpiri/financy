@@ -1,9 +1,9 @@
-import { prisma } from "@/lib/prisma";
+import { prisma } from "../lib/prisma";
 import {
   Transaction,
   TransactionCategory,
   TransactionType,
-} from "@/models/transaction";
+} from "../models/transaction";
 import { Prisma } from "@prisma/client";
 
 interface PaginationOptions {

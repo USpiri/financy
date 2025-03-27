@@ -1,5 +1,5 @@
-import { handleError } from "@/utils/handleError";
-import { verifyJWT } from "@/utils/jwt";
+import { handleError } from "../utils/handleError";
+import { verifyJWT } from "../utils/jwt";
 import { Request, Response, NextFunction } from "express";
 
 export const validateJWT = (

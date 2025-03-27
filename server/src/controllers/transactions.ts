@@ -1,12 +1,12 @@
-import { handleError } from "@/utils/handleError";
+import { handleError } from "../utils/handleError";
 import { Request, Response } from "express";
 import {
   createTransaction as createTransactionAction,
   getTransactions as getTransactionsAction,
   updateTransaction as updateTransactionAction,
   deleteTransaction as deleteTransactionAction,
-} from "@/services/transactions";
-import { Transaction } from "@/models/transaction";
+} from "../services/transactions";
+import { Transaction } from "../models/transaction";
 
 export const getTransactions = async (req: Request, res: Response) => {
   const { uid } = req.body;
