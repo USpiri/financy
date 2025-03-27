@@ -11,5 +11,11 @@ app.use(express.json());
 app.use(cors());
 
 app.use("/api", routes);
+app.get("/api/ping", (_req, res) => {
+  console.log("Someone pinged");
+  const timestamp = Date.now();
+  const uptime = process.uptime();
+  res.send({ timestamp, uptime });
+});
 
 export default app;
