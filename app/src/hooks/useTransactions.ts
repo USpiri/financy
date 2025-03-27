@@ -1,3 +1,4 @@
+import { BASE_URL } from "@/config/constants";
 import { Transaction } from "@/models";
 import { useTransactionStore } from "@/store/transactions.store";
 import { useUIStore } from "@/store/ui.store";
@@ -36,7 +37,7 @@ export const useTransactions = () => {
     }
 
     const { ok, transactions, error, pagination } = await fetch(
-      `/api/transactions?${searchParams.toString()}`,
+      `${BASE_URL}/api/transactions?${searchParams.toString()}`,
       {
         headers: { ...getHeaders() },
       },
@@ -54,7 +55,7 @@ export const useTransactions = () => {
 
   const deleteTransaction = async (id: string) => {
     setLoadingAction(true);
-    const { ok, error } = await fetch(`/api/transactions/${id}`, {
+    const { ok, error } = await fetch(`${BASE_URL}/api/transactions/${id}`, {
       method: "DELETE",
       headers: { ...getHeaders() },
     }).then((res) => res.json());
@@ -69,11 +70,14 @@ export const useTransactions = () => {
 
   const createTransaction = async (newTransaction: Partial<Transaction>) => {
     setLoadingAction(true);
-    const { ok, error, transaction } = await fetch(`/api/transactions/`, {
-      method: "POST",
-      headers: { ...getHeaders() },
-      body: JSON.stringify({ ...newTransaction }),
-    }).then((res) => res.json());
+    const { ok, error, transaction } = await fetch(
+      `${BASE_URL}/api/transactions/`,
+      {
+        method: "POST",
+        headers: { ...getHeaders() },
+        body: JSON.stringify({ ...newTransaction }),
+      },
+    ).then((res) => res.json());
 
     if (ok) {
       add(transaction);
@@ -92,7 +96,7 @@ export const useTransactions = () => {
 
     setLoadingAction(true);
     const { ok, error, transaction } = await fetch(
-      `/api/transactions/${newTransaction.id}`,
+      `${BASE_URL}/api/transactions/${newTransaction.id}`,
       {
         method: "PUT",
         headers: { ...getHeaders() },

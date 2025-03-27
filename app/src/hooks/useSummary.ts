@@ -1,3 +1,4 @@
+import { BASE_URL } from "@/config/constants";
 import { useSummaryStore } from "@/store/summary.store";
 import { calculateUndefinedBalance } from "@/utils/calculate";
 import { getHeaders } from "@/utils/get-headers";
@@ -11,7 +12,7 @@ export const useSummary = () => {
   const onError = useSummaryStore((state) => state.onError);
 
   const loadSummary = async () => {
-    const { ok, summary, error } = await fetch("/api/summary", {
+    const { ok, summary, error } = await fetch(`${BASE_URL}/api/summary`, {
       headers: { ...getHeaders() },
     }).then((res) => res.json());
 

@@ -1,3 +1,4 @@
+import { BASE_URL } from "@/config/constants";
 import { User } from "@/models";
 import { useAuthStore } from "@/store/auth.store";
 import { getHeaders } from "@/utils/get-headers";
@@ -26,11 +27,14 @@ export const useAuth = () => {
     password,
   }: RegisterProps) => {
     checkAuthStore();
-    const { ok, user, jwt, error } = await fetch("/api/auth/register", {
-      method: "POST",
-      headers: { ...getHeaders() },
-      body: JSON.stringify({ name, lastName, email, password }),
-    }).then((res) => res.json());
+    const { ok, user, jwt, error } = await fetch(
+      `${BASE_URL}/api/auth/register`,
+      {
+        method: "POST",
+        headers: { ...getHeaders() },
+        body: JSON.stringify({ name, lastName, email, password }),
+      },
+    ).then((res) => res.json());
 
     setStatus(ok, user, jwt, error);
   };
@@ -38,7 +42,7 @@ export const useAuth = () => {
   const login = async (email: string, password: string) => {
     checkAuthStore();
 
-    const { ok, user, jwt, error } = await fetch("/api/auth/login", {
+    const { ok, user, jwt, error } = await fetch(`${BASE_URL}/api/auth/login`, {
       method: "POST",
       headers: { ...getHeaders() },
       body: JSON.stringify({ email, password }),
