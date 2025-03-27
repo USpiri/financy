@@ -52,7 +52,7 @@ export const TransactionForm = () => {
 
   return (
     <form
-      className="flex flex-col gap-4 *:space-y-2"
+      className="flex flex-col gap-4 overflow-hidden *:space-y-2"
       onSubmit={handleSubmit((data) => onSubmit(data))}
     >
       <div>
@@ -148,7 +148,7 @@ export const TransactionForm = () => {
                 >
                   <CalendarIcon />{" "}
                   {field.value ? (
-                    field.value.toString()
+                    field.value.toLocaleDateString()
                   ) : (
                     <span>Pick a date</span>
                   )}
