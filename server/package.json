@@ -5,7 +5,8 @@
   "scripts": {
     "start": "node ./dist/index.js",
     "dev": "nodemon api/index.ts",
-    "build": "npx prisma generate && tsc",
+    "build": "npm run prisma:deplay && tsc",
+    "prisma:deploy": "npx run prisma migrate deploy && npx prisma generate",
     "generate-types": "npx gen-env-types",
     "seed": "ts-node src/seed/seed.ts",
     "postinstall": "prisma generate"
