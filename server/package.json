@@ -4,6 +4,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon server.ts",
+    "build": "tsc",
     "generate-types": "npx gen-env-types",
     "seed": "ts-node src/seed/seed.ts"
   },
